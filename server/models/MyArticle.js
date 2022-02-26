@@ -13,9 +13,12 @@ const schema = new mongoose.Schema({
   subTags: [{ type: mongoose.Schema.Types.ObjectId, ref: "SubTag" }],
   // 4. 基本信息
   infos: {
-    timeCreatd: {},
-    locationCreated: {},
-    climate: {}
+    // (1) 发表时间
+    timeCreated: { type: String },
+    // (2) 发表地点
+    locationCreated: { type: String },
+    // (3) 天气
+    climate: { type: String }
   },
   // 5. 内容
   content: {
