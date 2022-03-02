@@ -50,7 +50,8 @@
             <el-submenu index="3">
               <template slot="title"><i></i>运营管理</template>
               <el-menu-item-group>
-                <el-menu-item>标签</el-menu-item>
+                <el-menu-item>广告</el-menu-item>
+                <el-menu-item>流量</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
 

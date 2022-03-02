@@ -8,7 +8,9 @@ import {
   MenuItemGroup,
   MenuItem,
   Header,
-  Main
+  Main,
+  Input,
+  Button
  } from 'element-ui'
 
 Vue.use(Container)
@@ -20,3 +22,6 @@ Vue.use(MenuItem)
 
 Vue.use(Header)
 Vue.use(Main)
+
+Vue.use(Input)
+Vue.use(Button)

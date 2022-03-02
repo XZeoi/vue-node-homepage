@@ -7,6 +7,12 @@ import './plugins/element.js'
 /* 将基本样式引入  */
 // import "./assets/style/normalize.css"
 
+/* axios的挂载 */
+// 1. 导入axios的实例 
+import Http from "@/network/http.js"
+// 2. 将axios实例挂载到vue原型上 
+Vue.prototype.http = http
+
 Vue.config.productionTip = false
 
 new Vue({
