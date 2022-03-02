@@ -11,7 +11,7 @@ import './plugins/element.js'
 // 1. 导入axios的实例 
 import Http from "@/network/http.js"
 // 2. 将axios实例挂载到vue原型上 
-Vue.prototype.http = http
+Vue.prototype.$http = Http
 
 Vue.config.productionTip = false
 
