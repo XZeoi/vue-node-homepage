@@ -10,7 +10,9 @@ import {
   Header,
   Main,
   Input,
-  Button
+  Button,
+
+  Message, MessageBox
  } from 'element-ui'
 
 Vue.use(Container)
@@ -25,3 +27,6 @@ Vue.use(Main)
 
 Vue.use(Input)
 Vue.use(Button)
+
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm

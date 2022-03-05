@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './plugins/element.js'
+import '@/assets/iconfont/iconfont.css'
 
 /* 将基本样式引入  */
 // import "./assets/style/normalize.css"

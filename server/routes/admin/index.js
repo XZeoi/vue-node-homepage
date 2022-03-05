@@ -61,7 +61,7 @@ module.exports = app => {
   })
     /* (4) 查 */
   router.get("/", async (req, res) => {
-    const model = await req.Model.find().limit(10)
+    const model = await req.Model.find()
     res.send(model)
   })
     /* (5) 查具体 */
