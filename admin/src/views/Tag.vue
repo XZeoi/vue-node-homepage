@@ -8,7 +8,7 @@
 
     <div class="sub-tag">
       <h3>副标签管理</h3>
-      <tag-group :tags="subTags" path="sub_tags" ></tag-group>
+      <tag-group :tags="subTags" path="sub_tags"></tag-group>
     </div>
     <!-- <div class="sub-tag">
       <h3>副标签管理</h3>
@@ -78,6 +78,7 @@ export default {
   created() {
     /* 执行 */
     this.fetchMainTags()
+    this.fetchSubTags()
 
     // /* 新增tag区外点击，隐藏该新增tag输入区 */
     // document.addEventListener('click', (e) => {
@@ -91,8 +92,14 @@ export default {
     // })
   },
   mounted() {
-    this.$eventBus.$on("update", (res) => {
-      this.mainTags = res.data
+    this.$eventBus.$on("update", (res, path) => {
+      // 因为main_tags和sub_tags在delete及save中共用一个TagItem组件，所以需要判断。
+      // [思考] 怎样把组件的事件接口封装出去？
+      if (path == 'main_tags') {
+        this.mainTags = res.data
+      } else {
+        this.subTags = res.data
+      }
     })
   },
   beforeDestroy () {
@@ -107,8 +114,17 @@ export default {
     /* 获取后台数据库中mainTags */
     async fetchMainTags() {
       // 1. 从后台获取主标签数据
+      // if() {}
       const res = await this.$http.get('main_tags')
       this.mainTags = res.data
+    },
+    async fetchSubTags() {
+      console.log('woaini');
+
+      // 1. 从后台获取副标签数据
+      // const res = await this.$http.get('technical_articles')
+      const res = await this.$http.get('sub_tags')
+      this.subTags = res.data
     },
     // async mainTagSave(id = 0) {
     //   if (id !== 0) {

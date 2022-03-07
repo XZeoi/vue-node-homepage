@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
   name: { type: String }
 })
 
-const model = mongoose.model("SubTag", schema, subTags)
+const model = mongoose.model("SubTag", schema, "subTags")
 
 module.exports = model

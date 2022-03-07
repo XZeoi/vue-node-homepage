@@ -151,7 +151,7 @@ export default {
         this.isDeleteStatus = -1
         // 拉取新增后的tags，并将数据发给tag页面
         const res = await this.$http.get(`${this.path}`)
-        this.$eventBus.$emit('update', res)
+        this.$eventBus.$emit('update', res, this.path)
       }).catch(()=> {
         this.isDeleteStatus = -1
       })
@@ -180,7 +180,7 @@ export default {
         this.isCreateStatus = -1
         // 4. 拉取新增后的tags，并将数据发给tag页面
         const res = await this.$http.get(`${this.path}`)
-        this.$eventBus.$emit('update', res)
+        this.$eventBus.$emit('update', res, this.path)
       }
     }
   }

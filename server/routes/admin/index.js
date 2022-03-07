@@ -62,6 +62,7 @@ module.exports = app => {
     /* (4) 查 */
   router.get("/", async (req, res) => {
     const model = await req.Model.find()
+    console.log('查',model);
     res.send(model)
   })
     /* (5) 查具体 */
@@ -80,7 +81,9 @@ module.exports = app => {
     //     return eled
     //   })
     // }
+    console.log(req.params.resource);
     const modelName = require('inflection').classify(req.params.resource)
+    console.log('name',modelName);
     req.Model = require(`../../models/${modelName}`)
     next()
   } ,router)
