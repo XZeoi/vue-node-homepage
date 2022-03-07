@@ -192,8 +192,8 @@ export default {
   
   border: 1px dashed #999;
   border-radius: 2px;
-  padding: 1px 4px;
-  margin-right: 5px;
+  padding: 1px 6px;
+  margin-right: 8px;
   cursor: pointer;
 }
 
@@ -208,7 +208,7 @@ export default {
 
 .tag-close-area {
   position: absolute;
-  right: -14px;
+  right: -11px;
   top: -12px;
   font-size: 20px;
 }
