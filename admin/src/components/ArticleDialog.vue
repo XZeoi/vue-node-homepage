@@ -138,7 +138,7 @@ export default {
             message: "修改成功!"
           });
           this.$router.back(-1);
-          this.$emit('articlesUpdate')
+          // 后续需要在TechnicalArticle.vue组件中更新数据，我们在TechnicalArticle.vue采用watch监听路由变化
         } else {
           const res = await this.$http.post('rest/technical_articles', this.model)
           this.$message({
@@ -146,8 +146,7 @@ export default {
             message: "发布成功!"
           });
           this.$router.back(-1);
-          // 后续需要在TechnicalArticle.vue组件中更新数据
-          this.$emit('articlesUpdate')
+          // 后续需要在TechnicalArticle.vue组件中更新数据，我们在TechnicalArticle.vue采用watch监听路由变化
         }
         
       }).catch((err)=>{

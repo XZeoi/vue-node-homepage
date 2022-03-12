@@ -47,6 +47,7 @@ export default {
     };
   },
   watch: {
+    // 监听路由变化，当ArticleDialog.vue组件保存文章后，跳转回当前路由时，需要更新文章列表
     $route(to, from) {
       this.articlesFetch()
     }
