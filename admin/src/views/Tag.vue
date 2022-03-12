@@ -3,12 +3,12 @@
     <h2>标签管理</h2>
     <div class="main-tag">
       <h3>主标签管理</h3>
-      <tag-group :tags="mainTags" path="main_tags" ></tag-group>
+      <tag-group :tags="mainTags" path="rest/main_tags" ></tag-group>
     </div>
 
     <div class="sub-tag">
       <h3>副标签管理</h3>
-      <tag-group :tags="subTags" path="sub_tags"></tag-group>
+      <tag-group :tags="subTags" path="rest/sub_tags"></tag-group>
     </div>
     <!-- <div class="sub-tag">
       <h3>副标签管理</h3>
@@ -43,7 +43,6 @@
         </span>
       </div>
     </div> -->
-
   </div>
 </template>
 
@@ -95,7 +94,7 @@ export default {
     this.$eventBus.$on("update", (res, path) => {
       // 因为main_tags和sub_tags在delete及save中共用一个TagItem组件，所以需要判断。
       // [思考] 怎样把组件的事件接口封装出去？
-      if (path == 'main_tags') {
+      if (path == 'rest/main_tags') {
         this.mainTags = res.data
       } else {
         this.subTags = res.data
@@ -115,7 +114,7 @@ export default {
     async fetchMainTags() {
       // 1. 从后台获取主标签数据
       // if() {}
-      const res = await this.$http.get('main_tags')
+      const res = await this.$http.get('rest/main_tags')
       this.mainTags = res.data
     },
     async fetchSubTags() {
@@ -123,7 +122,7 @@ export default {
 
       // 1. 从后台获取副标签数据
       // const res = await this.$http.get('technical_articles')
-      const res = await this.$http.get('sub_tags')
+      const res = await this.$http.get('rest/sub_tags')
       this.subTags = res.data
     },
     // async mainTagSave(id = 0) {

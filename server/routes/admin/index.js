@@ -61,7 +61,14 @@ module.exports = app => {
   })
     /* (4) 查 */
   router.get("/", async (req, res) => {
-    const model = await req.Model.find()
+    const queryOptions = {}
+    if (req.Model.modelName === 'TechnicalArticle') {
+
+      queryOptions.populate = 'mainTag'
+      console.log("进入2", queryOptions);
+
+    }
+    const model = await req.Model.find().setOptions(queryOptions)
     console.log('查',model);
     res.send(model)
   })
@@ -72,7 +79,7 @@ module.exports = app => {
   })
 
    /* 4. 统一通用路由规则 */
-  app.use("/admin/api/:resource", (req, res, next) => {
+  app.use("/admin/api/rest/:resource", (req, res, next) => {
     // const Inflection = require("inflection")
     // const res = req.params.resource
     // if (res.indexOf('_') != -1) {
@@ -87,4 +94,18 @@ module.exports = app => {
     req.Model = require(`../../models/${modelName}`)
     next()
   } ,router)
+
+  /* 5. 上传文件的接口 */ 
+  // (1) 导入multer处理数据的第三方模块
+  const multer = require('multer')
+
+  // (2) 创建multer中间件
+  const upload = multer({dest: __dirname + '/../../uploads'})
+
+  // (3) 创建上传文件接口
+  app.post("/admin/api/upload", upload.single("file"), async (req, res) => {
+    const file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
 }

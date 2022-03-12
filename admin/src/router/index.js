@@ -10,6 +10,8 @@ const Photograph = () => import("@/views/Photograph.vue")
 const Design = () => import("@/views/Design.vue")
 const Drawing = () => import("@/views/Drawing.vue")
 
+const ArticleDialog = () => import('@/components/ArticleDialog.vue')
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -19,7 +21,17 @@ Vue.use(VueRouter)
     component: Main,
     children: [
       { path: '/tags', component: Tag },
-      { path: '/technical_articles', component: TechnicalArticle },
+      { path: '/technical_articles', 
+        component: TechnicalArticle, 
+        // beforeEnter: (to, from) => {
+          
+        //   // reject the navigation
+        //   return false
+        // },
+        children: [
+        { path: 'create', component: ArticleDialog },
+        { path: 'edit/:id', component: ArticleDialog, props: true },
+      ]},
       { path: '/my_articles', component: MyArticle },
       { path: '/photographs', component: Photograph },
       { path: '/designs', component: Design },

@@ -12,7 +12,10 @@ import {
   Input,
   Button,
 
-  Message, MessageBox
+  Message, MessageBox,
+
+  Table,
+  Form, FormItem, Select, Option, Row, Col, DatePicker, TableColumn
  } from 'element-ui'
 
 Vue.use(Container)
@@ -27,6 +30,21 @@ Vue.use(Main)
 
 Vue.use(Input)
 Vue.use(Button)
+
+// Vue.use(Dialog)
+
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Row)
+Vue.use(Col)
+
+Vue.use(DatePicker)
+
+
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
