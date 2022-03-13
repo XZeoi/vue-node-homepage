@@ -11,6 +11,7 @@ const Design = () => import("@/views/Design.vue")
 const Drawing = () => import("@/views/Drawing.vue")
 
 const ArticleDialog = () => import('@/components/ArticleDialog.vue')
+const WorkDialog = () => import('@/components/WorkDialog.vue')
 
 Vue.use(VueRouter)
 
@@ -29,11 +30,31 @@ Vue.use(VueRouter)
         //   return false
         // },
         children: [
-        { path: 'create', component: ArticleDialog },
-        { path: 'edit/:id', component: ArticleDialog, props: true },
+        // { path: 'create', component: ArticleDialog },
+        { path: 'create', component: ArticleDialog, props: {tagPath: 'main_tags',
+        articlePath: 'technical_articles'} },
+        // { path: 'edit/:id', component: ArticleDialog,  props: true},
+        { path: 'edit/:id', component: ArticleDialog,  props: route => ({
+          id: route.params.id,
+          tagPath: 'main_tags',
+          articlePath: 'technical_articles'
+        })},
       ]},
-      { path: '/my_articles', component: MyArticle },
-      { path: '/photographs', component: Photograph },
+      { path: '/my_articles', component: MyArticle, children: [
+        { path: 'create', component: ArticleDialog, props: {tagPath: 'main_tags',
+        articlePath: 'my_articles'} },
+        // { path: 'edit/:id', component: ArticleDialog,  props: true},
+        { path: 'edit/:id', component: ArticleDialog,  props: route => ({
+          id: route.params.id,
+          tagPath: 'main_tags',
+          articlePath: 'my_articles'
+        })},
+      ] },
+      { path: '/photographs', component: Photograph,
+        children: [
+          // { path: 'create', component: WorkDialog, props: {} }
+        ]
+      },
       { path: '/designs', component: Design },
       { path: '/drawings', component: Drawing },
     ]

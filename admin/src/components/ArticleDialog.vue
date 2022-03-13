@@ -9,7 +9,7 @@
               <el-col :span="8">
                 <el-form-item label="标题">
                   <el-input
-                  autofocus
+                    autofocus
                     v-model="model.title"
                     width="200px"
                     class="define-input title-input"
@@ -55,7 +55,7 @@
               </div>
             </el-form-item>
             <el-form-item class="submit-area">
-              <el-button type="text" size="small">取消</el-button>
+              <el-button type="text" size="small" @click="close">取消</el-button>
               <el-button type="text" size="small">保存为草稿</el-button>
               <el-button type="primary" size="small" native-type="submit">发布</el-button>
             </el-form-item>
@@ -77,14 +77,16 @@ export default {
     VueEditor,
   },
   props: {
-    isCreateStatus: {
-      type: Boolean,
-      default: false,
-    },
     id: {
       type: String,
       default: '',
     },
+    tagPath: {
+      type: String
+    },
+    articlePath: {
+      type: String
+    }
   },
   data() {
     return {
@@ -96,34 +98,44 @@ export default {
           timeCreated: '',
         },
         content: ''
-      },
+      }
     };
   },
   created() {
-    // 获取tag
+    // 1. 获取tag
     this.tagFetch();
-    // 当id存在，拉取当前文章
+    // 2. 当id存在，拉取当前文章
     this.id && this.articleFetch()
   },
   methods: {
-    // tag获取
+    /* tag获取 */
     async tagFetch() {
-      const res = await this.$http.get("rest/main_tags");
+      // const res = await this.$http.get("rest/main_tags");
+      const res = await this.$http.get(`rest/${this.tagPath}`);
       this.tags = res.data;
       console.log(this.tags);
     },
-    // 关闭对话框
+    /* 关闭对话框 */
     close() {
       // this.$emit("dialogClose");
-      this.$router.back(-1);
+      this.$confirm(`是否退出编辑`,'提示', {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+          this.$router.back(-1);
+      }).catch((err)=>{
+        console.log(err);
+      })
     },
-    // 当id存在，为编辑文章时，拉取当前具体文章数据
+    /* 当id存在，为编辑文章时，拉取当前具体文章数据 */
     async articleFetch() {
-      const res = await this.$http.get(`rest/technical_articles/${this.id}`)
+      // const res = await this.$http.get(`rest/technical_articles/${this.id}`)
+      const res = await this.$http.get(`rest/${this.articlePath}/${this.id}`)
       this.model = res.data
       console.log(this.model);
     },
-    // 发布文章
+    /* 发布文章 */
     save() {
       // 1. 弹窗确认是否发布
       this.$confirm(`是否确认发布该文章`,'提示', {
@@ -132,7 +144,8 @@ export default {
         type: "warning"
       }).then(async ()=>{
         if (this.id) {
-          const res = await this.$http.put(`rest/technical_articles/${this.id}`, this.model)
+          // const res = await this.$http.put(`rest/technical_articles/${this.id}`, this.model)
+          const res = await this.$http.put(`rest/${this.articlePath}/${this.id}`, this.model)
           this.$message({
             type: "success",
             message: "修改成功!"
@@ -140,20 +153,20 @@ export default {
           this.$router.back(-1);
           // 后续需要在TechnicalArticle.vue组件中更新数据，我们在TechnicalArticle.vue采用watch监听路由变化
         } else {
-          const res = await this.$http.post('rest/technical_articles', this.model)
+          // const res = await this.$http.post('rest/technical_articles', this.model)
+          const res = await this.$http.post(`rest/${this.articlePath}`, this.model)
           this.$message({
             type: "success",
             message: "发布成功!"
           });
           this.$router.back(-1);
           // 后续需要在TechnicalArticle.vue组件中更新数据，我们在TechnicalArticle.vue采用watch监听路由变化
-        }
-        
+        }        
       }).catch((err)=>{
         console.log(err);
       })
     },
-    // vue2editor多媒体文件上传
+    /* vue2editor多媒体文件上传 */
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       // An example of using FormData
       // NOTE: Your key could be different such as:
@@ -168,7 +181,7 @@ export default {
       Editor.insertEmbed(cursorLocation, "image", url);
       resetUploader()
     }
-  },
+  }
 };
 </script>
 

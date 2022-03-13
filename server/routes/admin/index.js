@@ -61,15 +61,16 @@ module.exports = app => {
   })
     /* (4) 查 */
   router.get("/", async (req, res) => {
-    const queryOptions = {}
-    if (req.Model.modelName === 'TechnicalArticle') {
+    /* 处理某个具体模型的关联查询 */
+    // const queryOptions = {}
+    // if (req.Model.modelName === 'TechnicalArticle') {
+    //   queryOptions.populate = 'mainTag'
+    // } 
+    // const model = await req.Model.find().setOptions(queryOptions)
 
-      queryOptions.populate = 'mainTag'
-      console.log("进入2", queryOptions);
-
-    }
-    const model = await req.Model.find().setOptions(queryOptions)
-    console.log('查',model);
+    /* 我们可以用Set the `strictPopulate` option to false to override.
+    这样就可以实现所有模型的关联查询，即使在某些模型schema中不存在 */
+    const model = await req.Model.find().populate([{ path: "mainTag", strictPopulate: false }])
     res.send(model)
   })
     /* (5) 查具体 */
