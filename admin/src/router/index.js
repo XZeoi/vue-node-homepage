@@ -48,11 +48,17 @@ Vue.use(VueRouter)
           id: route.params.id,
           tagPath: 'main_tags',
           articlePath: 'my_articles'
-        })},
+        }) },
       ] },
       { path: '/photographs', component: Photograph,
         children: [
-          // { path: 'create', component: WorkDialog, props: {} }
+          { path: 'create', component: WorkDialog, props: {tagPath: 'main_tags',
+          articlePath: 'photographs'} },
+          { path: 'edit/:id', component: WorkDialog, props: route => ({
+            id: route.params.id,
+            tagPath: 'main_tags',
+            articlePath: 'photographs'
+          }) },
         ]
       },
       { path: '/designs', component: Design },

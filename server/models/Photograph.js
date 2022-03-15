@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
     tools: [{ type: String }]
   },
   // 4. 地址
-  url: { type: String },
+  url: [{ type: String }],
   // 5. 缩略图
   avatar: { type: String }
 })

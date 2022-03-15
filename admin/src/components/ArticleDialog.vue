@@ -228,9 +228,6 @@ export default {
   flex: 1;
 }
 
-.article-info {
- 
-}
 
 .dialog-title {
   margin: 0;

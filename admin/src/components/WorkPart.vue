@@ -34,14 +34,53 @@
 
     <div>
       <router-view></router-view>
-      <!-- <article-dialog :isCreateStatus="isCreateStatus" @dialogClose="dialogClose"></article-dialog> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    worksPath: { type: String }
+  },
+  data() {
+    return {
+      works: []
+    }
+  },
+  watch: {
+    // 监听路由变化，当ArticleDialog.vue组件保存文章后，跳转回当前路由时，需要更新文章列表
+    $route(to, from) {
+      this.worksFetch()
+    }
+  },
+  created() {
+    // 拉取文章列表
+    this.worksFetch()
+  },
+  methods: {
+    async worksFetch() {
+      // const res = await this.$http.get('rest/technical_articles')
+      const res = await this.$http.get(`rest/${this.worksPath}`)
+      this.works = res.data
+    },
+    // 删除目标文章
+    remove(row) {
+      this.$confirm(`是否确定要删除文章 "${row.title}"`, '提示', {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(async () => {
+        // await this.$http.delete(`rest/technical_articles/${row._id}`)
+        await this.$http.delete(`rest/${this.worksPath}/${row._id}`)
+        this.$message({
+          type: "success",
+          message: "删除成功!"
+        })
+        this.worksFetch()
+      })
+    }
+  }
 }
 </script>
 
