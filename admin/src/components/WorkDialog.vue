@@ -43,29 +43,40 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <div class="upload-label">上传作品</div>
+            <!-- <div class="upload-label">上传作品</div> -->
             <el-form-item class="editor-area">
-              <el-upload
+              <!-- <div v-if="!id">
+                <el-upload
                 :action="$http.defaults.baseURL + '/upload'"
                 list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
                 :on-remove="handleRemove"
+                :on-success="afterUpload"
               >
                 <i class="el-icon-plus"></i>
               </el-upload>
-              <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="model.url" alt="" />
-              </el-dialog>
-              <!-- <el-upload
-              list-type="picture-card"
-                class="avatar-uploader"
-                :action="$http.defaults.baseURL + '/upload'"
-                :show-file-list="false"
-                :on-success="afterUpload"
-              >
-                <img :src="model.url" v-if="model.url" class="avatar" />
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload> -->
+              </div> -->
+
+              <div>
+                <div>
+                  <el-button class="" type="text" @click="model.subs.push({})"
+                    ><i class="el-icon-plus"></i>新增</el-button
+                  >
+                </div>
+                <div class="upload-area">
+                  <div v-for="(item, index) of model.subs" :key="index">
+                    <el-upload
+                      class="avatar-uploader"
+                      :action="$http.defaults.baseURL + '/upload'"
+                      :show-file-list="false"
+                      :on-success="(res) => afterUpload(res, index)"
+                      :on-remove="(file) => handleRemove(file,index)"
+                    >
+                      <img :src="item.url" v-if="item.url" class="avatar" />
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                  </div>
+                </div>
+              </div>
             </el-form-item>
             <el-form-item class="submit-area">
               <el-button type="text" size="small" @click="close"
@@ -102,16 +113,17 @@ export default {
   },
   data() {
     return {
+      urls: [],
       tags: [],
       model: {
         title: "",
-        mainTag: "",
+        mainTag: null,
         infos: {
           timeCreated: "",
         },
-        url: "",
+        subs: [],
       },
-      dialogVisible: false
+      dialogVisible: false,
     };
   },
   created() {
@@ -148,7 +160,7 @@ export default {
       // const res = await this.$http.get(`rest/technical_articles/${this.id}`)
       const res = await this.$http.get(`rest/${this.articlePath}/${this.id}`);
       this.model = res.data;
-      console.log(this.model);
+      // console.log(this.model);
     },
     /* 发布文章 */
     save() {
@@ -189,16 +201,27 @@ export default {
           console.log(err);
         });
     },
-    afterUpload(res) {
-      this.$set(this.model, "url", res.url);
+    afterUpload(res, i) {
+      /* 替换当前位置的图片 */
+      // 点击“新增”，始终会增加一个空的对象{}，所以“新增”即替换该空对象{}
+      this.model.subs.splice(i, 1, { url: res.url });
+
+      // console.log('i',i);
+      // if (!this.model.subs.slice(-1)) {
+      //   /* 方法一 */
+      //   // 1. 删除subs最后一项
+      //   this.model.subs.splice(-1, 1)
+      //   // 2. 再添加进
+      //   this.model.subs.push({url: res.url})
+      // } else {
+      // this.model.subs.splice(i, 1, {url: res.url})
+      // }
+      // this.$set(this.model, "subs", this.urls);
+      // console.log("hey", this.model);
     },
-    handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.model.url = file.url;
-        this.dialogVisible = true;
-      }
+    handleRemove(file, index) {
+      console.log('remove',file, index);
+    },
   },
 };
 </script>
@@ -266,32 +289,41 @@ export default {
   margin-bottom: 6px;
 }
 
+.upload-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .img-dialog {
+  z-index: 0;
+} */
+
 /* 这里原先的border: 1px dashed #d9d9d9;
 没起作用原因是因为scoped限制了.el-upload（属于elementui内部样式）样式起作用的范围， 
 解决办法一：换掉，自定义class就可以了，把.el-upload换掉自定义的class，这里可以删除掉.el-upload
 解决办法二：使用CSS穿刺
 */
 /* .avatar-uploader {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  } */
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+} */
 </style>

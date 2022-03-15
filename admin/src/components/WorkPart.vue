@@ -9,9 +9,10 @@
         <el-table-column prop="_id" label="ID" width="240"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
         <el-table-column prop="mainTag.name" label="标签"></el-table-column>
-        <el-table-column prop="url" label="缩略图">
+        <el-table-column label="缩略图">
           <template slot-scope="scope">
-            <img :src="scope.row.url" alt="" style="height:3rem;">
+            <!-- {{scope.row.subs[1]}} -->
+            <img :src="scope.row.subs[1].url" alt="" style="height:3rem;">
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
@@ -63,6 +64,7 @@ export default {
       // const res = await this.$http.get('rest/technical_articles')
       const res = await this.$http.get(`rest/${this.worksPath}`)
       this.works = res.data
+      console.log('列表数据',res);
     },
     // 删除目标文章
     remove(row) {
