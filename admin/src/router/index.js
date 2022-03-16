@@ -102,7 +102,24 @@ const routes = [
           },
         ]
       },
-      { path: '/drawings', component: Drawing },
+      {
+        path: '/drawings', component: Drawing,
+        children: [
+          {
+            path: 'create', component: WorkDialog, props: {
+              tagPath: 'main_tags',
+              articlePath: 'drawings'
+            }
+          },
+          {
+            path: 'edit/:id', component: WorkDialog, props: route => ({
+              id: route.params.id,
+              tagPath: 'main_tags',
+              articlePath: 'drawings'
+            })
+          },
+        ]
+      },
     ]
   },
   // {
