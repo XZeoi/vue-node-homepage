@@ -12,18 +12,11 @@ export default {
   components: { WorkPart },
   data() {
     return {
-      dialogVisible: false,
-      dialogImageUrl: ''
+
     }
   },
   methods: {
-    handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    }
+
   }
 };
 </script>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '@/views/Main.vue'
 
-/* Main子路由 */ 
+/* Main子路由 */
 const Tag = () => import("@/views/Tag.vue")
 const TechnicalArticle = () => import("@/views/TechnicalArticle.vue")
 const MyArticle = () => import("@/views/MyArticle.vue")
@@ -15,53 +15,93 @@ const WorkDialog = () => import('@/components/WorkDialog.vue')
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Main',
     component: Main,
     children: [
       { path: '/tags', component: Tag },
-      { path: '/technical_articles', 
-        component: TechnicalArticle, 
+      {
+        path: '/technical_articles',
+        component: TechnicalArticle,
         // beforeEnter: (to, from) => {
-          
+
         //   // reject the navigation
         //   return false
         // },
         children: [
-        // { path: 'create', component: ArticleDialog },
-        { path: 'create', component: ArticleDialog, props: {tagPath: 'main_tags',
-        articlePath: 'technical_articles'} },
-        // { path: 'edit/:id', component: ArticleDialog,  props: true},
-        { path: 'edit/:id', component: ArticleDialog,  props: route => ({
-          id: route.params.id,
-          tagPath: 'main_tags',
-          articlePath: 'technical_articles'
-        })},
-      ]},
-      { path: '/my_articles', component: MyArticle, children: [
-        { path: 'create', component: ArticleDialog, props: {tagPath: 'main_tags',
-        articlePath: 'my_articles'} },
-        // { path: 'edit/:id', component: ArticleDialog,  props: true},
-        { path: 'edit/:id', component: ArticleDialog,  props: route => ({
-          id: route.params.id,
-          tagPath: 'main_tags',
-          articlePath: 'my_articles'
-        }) },
-      ] },
-      { path: '/photographs', component: Photograph,
-        children: [
-          { path: 'create', component: WorkDialog, props: {tagPath: 'main_tags',
-          articlePath: 'photographs'} },
-          { path: 'edit/:id', component: WorkDialog, props: route => ({
-            id: route.params.id,
-            tagPath: 'main_tags',
-            articlePath: 'photographs'
-          }) },
+          // { path: 'create', component: ArticleDialog },
+          {
+            path: 'create', component: ArticleDialog, props: {
+              tagPath: 'main_tags',
+              articlePath: 'technical_articles'
+            }
+          },
+          // { path: 'edit/:id', component: ArticleDialog,  props: true},
+          {
+            path: 'edit/:id', component: ArticleDialog, props: route => ({
+              id: route.params.id,
+              tagPath: 'main_tags',
+              articlePath: 'technical_articles'
+            })
+          },
         ]
       },
-      { path: '/designs', component: Design },
+      {
+        path: '/my_articles', component: MyArticle, children: [
+          {
+            path: 'create', component: ArticleDialog, props: {
+              tagPath: 'main_tags',
+              articlePath: 'my_articles'
+            }
+          },
+          // { path: 'edit/:id', component: ArticleDialog,  props: true},
+          {
+            path: 'edit/:id', component: ArticleDialog, props: route => ({
+              id: route.params.id,
+              tagPath: 'main_tags',
+              articlePath: 'my_articles'
+            })
+          },
+        ]
+      },
+      {
+        path: '/photographs', component: Photograph,
+        children: [
+          {
+            path: 'create', component: WorkDialog, props: {
+              tagPath: 'main_tags',
+              articlePath: 'photographs'
+            }
+          },
+          {
+            path: 'edit/:id', component: WorkDialog, props: route => ({
+              id: route.params.id,
+              tagPath: 'main_tags',
+              articlePath: 'photographs'
+            })
+          },
+        ]
+      },
+      {
+        path: '/designs', component: Design,
+        children: [
+          {
+            path: 'create', component: WorkDialog, props: {
+              tagPath: 'main_tags',
+              articlePath: 'designs'
+            }
+          },
+          {
+            path: 'edit/:id', component: WorkDialog, props: route => ({
+              id: route.params.id,
+              tagPath: 'main_tags',
+              articlePath: 'designs'
+            })
+          },
+        ]
+      },
       { path: '/drawings', component: Drawing },
     ]
   },

@@ -1,12 +1,15 @@
 <template>
   <div class="design-page">
-    设计作品
+    <h2>设计作品</h2>
+    <work-part worksPath="designs"></work-part>
   </div>
 </template>
 
 <script>
-export default {
+import WorkPart from "@/components/WorkPart.vue"
 
+export default {
+  components: { WorkPart }
 }
 </script>
 
