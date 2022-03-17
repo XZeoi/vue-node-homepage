@@ -9,9 +9,12 @@ const MyArticle = () => import("@/views/MyArticle.vue")
 const Photograph = () => import("@/views/Photograph.vue")
 const Design = () => import("@/views/Design.vue")
 const Drawing = () => import("@/views/Drawing.vue")
+const AdminUser = () => import("@/views/AdminUser.vue")
 
 const ArticleDialog = () => import('@/components/ArticleDialog.vue')
 const WorkDialog = () => import('@/components/WorkDialog.vue')
+
+const AdminUserDialog = () => import('@/components/AdminUserDialog.vue')
 
 Vue.use(VueRouter)
 
@@ -120,6 +123,9 @@ const routes = [
           },
         ]
       },
+      {path: "/admin_users", component: AdminUser, children: [
+        {path: "create", component: AdminUserDialog, props: true}
+      ]}
     ]
   },
   // {

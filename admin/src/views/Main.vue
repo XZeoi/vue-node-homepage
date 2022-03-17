@@ -59,9 +59,8 @@
             <el-submenu index="4">
               <template slot="title"><i></i>系统设置</template>
               <el-menu-item-group>
-                <template slot="title">管理员</template>
-                <el-menu-item index="/admin_users/create">新建管理员</el-menu-item>
-                <el-menu-item index="/admin_users/list">管理员列表</el-menu-item>
+                <template slot="title">管理员账号管理</template>
+                <el-menu-item index="/admin_users">管理员账号</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
