@@ -15,7 +15,7 @@ import {
   Message, MessageBox,
 
   Table,
-  Form, FormItem, Select, Option, Row, Col, DatePicker, TableColumn, Upload, Dialog
+  Form, FormItem, Select, Option, Row, Col, DatePicker, TableColumn, Upload, Dialog, Card
  } from 'element-ui'
 
 Vue.use(Container)
@@ -46,6 +46,8 @@ Vue.use(DatePicker)
 
 Vue.use(Upload)
 Vue.use(Dialog)
+
+Vue.use(Card)
 
 
 

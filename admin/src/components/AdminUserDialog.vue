@@ -23,7 +23,7 @@
             </el-form>
           </div>
         </div>
-        <div class="area-close">
+        <div class="area-close" @click="close">
           <i class="el-icon-close"></i>
         </div>
       </div>

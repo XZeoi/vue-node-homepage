@@ -41,7 +41,7 @@ module.exports = app => {
   /* 5. 统一路由规则 */
   // app.use("/admin/api", router)
 
-  /* 3. 编写通用模型接口的CRUD */
+  /* 3. 编写通用资源路由模型接口的CRUD */
     /* (1) 增 */
   router.post("/", async (req, res) => {
     console.log(req.body)
@@ -79,7 +79,7 @@ module.exports = app => {
     res.send(model)
   })
 
-   /* 4. 统一通用路由规则 */
+   /* 4. （资源路由）统一通用路由规则 */
   app.use("/admin/api/rest/:resource", (req, res, next) => {
     // const Inflection = require("inflection")
     // const res = req.params.resource
@@ -96,7 +96,7 @@ module.exports = app => {
     next()
   } ,router)
 
-  /* 5. 上传文件的接口 */ 
+  /* 5. （上传路由）上传文件的接口 */ 
   // (1) 导入multer处理数据的第三方模块
   const multer = require('multer')
 
@@ -108,5 +108,34 @@ module.exports = app => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
+  })
+
+  /* 6. （登录路由）登录接口 */
+  app.post("/admin/api/login", async (req, res) => {
+    // (1) 解构前端发来的用户名及密码
+    const { username, password } = req.body
+    // (2) 导入AdminUser模型
+    const AdminUser = require("../../models/AdminUser")
+    // (3) 验证用户是否存在
+    // [注意] 勿遗漏await
+    const user = await AdminUser.findOne({username}).select("+password")
+    if (!user) {
+      return res.status(442).send({
+        message: "用户名不存在！"
+      })
+    }
+    // (4) 校验密码
+    const isValid = require("bcrypt").compareSync(password, user.password)
+    if (!isValid) {
+      return res.status(442).send({
+        message: "密码错误！"
+      })
+    }
+    // (5) 生成token
+    const token = require("jsonwebtoken").sign({
+      id: user._id
+    }, app.get("secret"))
+    // (6) 返回token
+    res.send({token})
   })
 }

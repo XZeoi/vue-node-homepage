@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '@/views/Login.vue'
 import Main from '@/views/Main.vue'
 
 /* Main子路由 */
@@ -19,6 +20,11 @@ const AdminUserDialog = () => import('@/components/AdminUserDialog.vue')
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
   {
     path: '/',
     name: 'Main',

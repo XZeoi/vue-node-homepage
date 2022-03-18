@@ -18,6 +18,11 @@ app.use('/', express.static(__dirname + '/web'))
 app.use('/admin', express.static(__dirname + '/admin'))
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
+// 设置全局变量
+// 设置全局密钥
+app.set("secret", "sdadwd2ded23")
+
+
 
 // 导入书数据库模块
 require("./plugins/db")(app)
