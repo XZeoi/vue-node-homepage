@@ -71,7 +71,9 @@
 
         <!-- 顶部栏区 -->
         <el-header>
-
+          <div class="header-area">
+            <div @click="signOut" class="sign-out"><span>退出</span></div>
+          </div>
         </el-header>
 
         <!-- 内容区 -->
@@ -85,10 +87,24 @@
 
 <script>
 export default {
-
+  methods: {
+    signOut() {
+      // 1. 清楚浏览器token
+      sessionStorage.removeItem('token')
+      // 2. 跳转至登录页面
+      this.$router.push('/login')     
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.header-area {
+  display: flex;
+  justify-content: flex-end
+}
 
+.sign-out {
+  cursor: pointer;
+}
 </style>

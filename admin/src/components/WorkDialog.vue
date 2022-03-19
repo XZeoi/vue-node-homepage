@@ -65,6 +65,7 @@
                 <div class="upload-area">
                   <div v-for="(item, index) of model.subs" :key="index">
                     <el-upload
+                      :headers="getAuthHeadersMixin()"
                       class="avatar-uploader"
                       :action="$http.defaults.baseURL + '/upload'"
                       :show-file-list="false"

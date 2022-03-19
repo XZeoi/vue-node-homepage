@@ -7,6 +7,9 @@ module.exports = app => {
   /* 1. 导入express模块 */
   const express = require("express")
 
+  /* 导入相关中间件 */
+  const AuthMiddleware = require("../../middlewares/auth")
+
   /* 2. 创建一个路由容器 */
   const router = express.Router()
 
@@ -70,7 +73,7 @@ module.exports = app => {
 
     /* 我们可以用Set the `strictPopulate` option to false to override.
     这样就可以实现所有模型的关联查询，即使在某些模型schema中不存在 */
-    const model = await req.Model.find().populate([{ path: "mainTag", strictPopulate: false }])
+    const model = await req.Model.find().populate([{ path: "mainTag",strictPopulate: false }])
     res.send(model)
   })
     /* (5) 查具体 */
@@ -79,8 +82,10 @@ module.exports = app => {
     res.send(model)
   })
 
+
+
    /* 4. （资源路由）统一通用路由规则 */
-  app.use("/admin/api/rest/:resource", (req, res, next) => {
+  app.use("/admin/api/rest/:resource", AuthMiddleware(), (req, res, next) => {
     // const Inflection = require("inflection")
     // const res = req.params.resource
     // if (res.indexOf('_') != -1) {
@@ -96,6 +101,8 @@ module.exports = app => {
     next()
   } ,router)
 
+
+
   /* 5. （上传路由）上传文件的接口 */ 
   // (1) 导入multer处理数据的第三方模块
   const multer = require('multer')
@@ -109,6 +116,8 @@ module.exports = app => {
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
   })
+
+
 
   /* 6. （登录路由）登录接口 */
   app.post("/admin/api/login", async (req, res) => {

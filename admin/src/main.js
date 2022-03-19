@@ -12,6 +12,17 @@ import '@/assets/style/elements.css'
 /* 定义一个事件总线 */
 Vue.prototype.$eventBus = new Vue()
 
+/* Vue全局混入 */
+Vue.mixin({
+  methods: {
+    getAuthHeadersMixin() {
+      return {
+        Authorization: `Bearer ${sessionStorage.token || ''}`
+      }
+    }
+  }
+})
+
 /* axios的挂载 */
 // 1. 导入axios的实例 
 import Http from "@/network/http.js"
