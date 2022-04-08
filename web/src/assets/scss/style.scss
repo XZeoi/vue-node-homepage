@@ -1,0 +1,184 @@
+@import './variables';
+
+/**
+* 样式重置 
+*/
+
+/* 全局样式重置 */
+* {
+  // 重置盒模型
+  // 默认的盒模型是以内容为基准，这里我们改为边框为基准，这样改变padding时不会撑大盒模型，不会改变布局。
+  box-sizing: border-box;
+  // 重置外轮廓（Tab键切换时，各元素的外轮廓）
+  outline: none;
+}
+
+/* 根元素 */
+html {
+  // 设置一个基本字体
+  // 后续可根据这个基础字体使用rem尺寸单位
+  // 一般默认是16px
+  font-size: 13px;
+}
+
+/* body元素初始化 */
+body {
+  // 重置外边距(默认有外边距)
+  margin: 0;
+  // 给予初始字体
+  // Arial 几乎所有设备都有的；Helvetica 是苹果设备字体；sans-serif 表示非衬线字体
+  font-family: Arial, Helvetica, sans-serif;
+  // 定义行高
+  // 1.2em表示当前字段的1.2倍，有的也喜欢定义为1.5
+  line-height: 1.2em;
+  // 定义背景色
+  background: #fff;
+  // 字体平滑（只针对Mac电脑）
+  // 因为苹果电脑可以看到0.5像素。
+  -webkit-font-smoothing: antialiased;
+}
+
+/* a标签 */
+a {
+  text-decoration: none;
+}
+
+/* p标签 */
+// 为文章的排版的段落制定一个默认样式
+p {
+  // 行高
+  line-height: 1.5em;
+}
+
+
+/**
+* 基础样式 
+*/
+
+/* 定义文本颜色、背景颜色 */
+@each $colorKey, $color in $colors {
+  // 文本颜色
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  // 背景颜色
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }   
+}
+
+/* 定义文本对齐方式 */
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    // 后续发现对齐样式不起作用，被覆盖。故这里设置该样式最高权限。
+    text-align: $var !important;
+  }
+}
+
+/* 定义文本字体大小 */
+@each $sizeKey, $size in $font-size {
+  .fs-#{$sizeKey} {
+    // 这里注意要乘以$font-base-size，$size只是一个倍数
+    font-size: $size * $font-base-size
+  }
+}
+
+/* 定义文本溢出样式 */
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // 关键设置，不换行
+  white-space: nowrap;
+}
+
+/* 定义flex布局 */
+// 1. display:flex;
+.d-flex {
+  display: flex;
+}
+
+// 2. flex-direction: column;
+// flex布局默认是水平的，所以需要垂直时就得设置
+.flex-column {
+  flex-direction: column;
+}
+
+// 3. 换行
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+// 4. justify-content
+@each $key, $value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+
+// 5. align-item
+@each $key, $value in $flex-ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+// 6. 自动撑满
+.flex-1 {
+  flex: 1;
+}
+
+
+/* 常用边距样式 */
+// 先循环类型（是margin还是padding），再循环方位（是上、下、左、右哪种），最后再循环尺寸（是哪个尺寸）
+@each $typeKey, $type in $spacing-types {
+  
+  // 1. 我们想要 .m-1 {margin: 0.25rem} 这种形式
+  // 这里就无需循环方位了，直接循环尺寸即可
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}-#{$sizeKye} {
+      #{$type}: $size * $spacing-base-size;
+  	}
+	}
+
+	// 2. 我们想要 .mx-1 {margin-right: 0.25rem; margin-left: 0.25rem} 这种形式(.mx-1、.my-1)
+	@each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size
+    }
+    
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size
+    }
+	}
+
+  // 3. 我们想要 .mt-1 {margin-top: 0.25rem} 这种形式
+  @each $directionKey, $direction in $spacing-directions {
+    @each $sizeKey, $size in $spacing-sizes {
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        // 不仅是在类名，在属性名中使用变量也需要用#{变量}方式。
+        #{$type}-#{$direction}: $size * $spcing-base-size;
+    	}
+    }
+  }
+}
+
+/* borders */
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
+  }
+}
+
+
+/* 宽、高 */
+// 表示宽度百分之百
+.w-100 {
+  width: 100%;
+}
+// 高度百分百
+.h-100 {
+  height: 100%;
+}
