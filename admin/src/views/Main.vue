@@ -62,6 +62,10 @@
                 <template slot="title">管理员账号管理</template>
                 <el-menu-item index="/admin_users">管理员账号</el-menu-item>
               </el-menu-item-group>
+              <el-menu-item-group>
+                <template slot="title">系统设置管理</template>
+                <el-menu-item index="/settings">系统设置</el-menu-item>
+              </el-menu-item-group>
             </el-submenu>
           </el-menu>
       </el-aside>

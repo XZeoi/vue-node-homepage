@@ -28,6 +28,8 @@ app.set("secret", "sdadwd2ded23")
 require("./plugins/db")(app)
 // 导入后台管理系统路由
 require("./routes/admin/index")(app)
+// 导入web系统路由
+require("./routes/web/index")(app)
 
 
 /* 三、 监听express实例，并设置端口为3000 */

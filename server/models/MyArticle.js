@@ -7,6 +7,17 @@ const mongoose = require("mongoose")
 const schema = new mongoose.Schema({
   // 1. 名称
   title: { type: String },
+  // (补充) 精选
+  isBest: {
+    type: Boolean,
+    default: false
+  },
+  banner: {
+    type: String
+  },
+  description: {
+    type: String
+  },
   // 2. 主标签
   mainTag: { type: mongoose.Schema.Types.ObjectId, ref: "MainTag" },
   // 3. 副标签

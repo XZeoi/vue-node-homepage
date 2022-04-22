@@ -43,6 +43,33 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <!-- BANNER AREA -->
+            <el-form-item>
+              <div>
+                <el-switch
+                  v-model="model.isBest"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                ></el-switch>
+                <!-- BANNER -->
+                <div v-show="model.isBest">
+                  <el-upload
+                    :headers="getAuthHeadersMixin()"
+                    class="avatar-uploader"
+                    :action="$http.defaults.baseURL + '/upload'"
+                    :show-file-list="false"
+                    :on-success="bannerAfterUpload"
+                  >
+                    <img :src="model.banner" v-if="model.banner" class="avatar" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
+                  <el-form-item label="描述">
+                    <el-input v-model="model.description" type="textarea" maxlength="30" show-word-limit></el-input>
+                  </el-form-item>
+                </div>
+              </div>
+            </el-form-item>
+
             <!-- <div class="upload-label">上传作品</div> -->
             <el-form-item class="editor-area">
               <!-- <div v-if="!id">
@@ -122,6 +149,9 @@ export default {
         infos: {
           timeCreated: "",
         },
+        isBest: false,
+        banner: "",
+        description: "",
         subs: [],
       },
       dialogVisible: false,
@@ -201,6 +231,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    bannerAfterUpload(res) {
+      this.$set(this.model,"banner", res.url)
     },
     afterUpload(res, i) {
       /* 替换当前位置的图片 */

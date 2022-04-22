@@ -47,9 +47,9 @@ module.exports = app => {
   /* 3. 编写通用资源路由模型接口的CRUD */
     /* (1) 增 */
   router.post("/", async (req, res) => {
-    console.log(req.body)
+    console.log('01',req.body, typeof req.body)
     const model = await req.Model.create(req.body)
-    console.log(model)
+    console.log('02',model)
     res.send(model) 
   })
     /* (2) 删 */
@@ -117,6 +117,8 @@ module.exports = app => {
     res.send(file)
   })
 
+  // (4) 创建上传文件的删除接口
+  // app.delete("/admin/")
 
 
   /* 6. （登录路由）登录接口 */

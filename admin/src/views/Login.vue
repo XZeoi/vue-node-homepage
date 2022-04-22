@@ -28,9 +28,7 @@ export default {
   },
   methods: {
     async login() {
-      console.log('1');
       const res = await this.$http.post("login", this.user)
-      console.log('2');
       sessionStorage.token = res.data.token
       this.$router.push('/')
       this.$message({

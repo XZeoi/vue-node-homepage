@@ -27,20 +27,41 @@ body {
   margin: 0;
   // 给予初始字体
   // Arial 几乎所有设备都有的；Helvetica 是苹果设备字体；sans-serif 表示非衬线字体
-  font-family: Arial, Helvetica, sans-serif;
+  // font-family: Arial, Helvetica, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   // 定义行高
   // 1.2em表示当前字段的1.2倍，有的也喜欢定义为1.5
-  line-height: 1.2em;
+  // line-height: 1.2em;
   // 定义背景色
   background: #fff;
   // 字体平滑（只针对Mac电脑）
   // 因为苹果电脑可以看到0.5像素。
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // 最小宽度
+  min-width: 980px;
 }
 
 /* a标签 */
 a {
   text-decoration: none;
+  color: #666
+}
+
+/* input */
+input {
+  outline: none;
+}
+
+/* 列表 */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
 }
 
 /* p标签 */
@@ -76,6 +97,9 @@ p {
 }
 
 /* 定义文本字体大小 */
+// $font-base-size: 1rem;
+// $font-size
+// xxs(8px), xs(10px), sm(12px), md(13px), lg(14px), xl(16px)
 @each $sizeKey, $size in $font-size {
   .fs-#{$sizeKey} {
     // 这里注意要乘以$font-base-size，$size只是一个倍数
@@ -110,6 +134,7 @@ p {
 }
 
 // 4. justify-content
+// start(flex-start),end(flex-end),center(center),between(space-between),around(space-around)
 @each $key, $value in $flex-jc {
   .jc-#{$key} {
     justify-content: $value;
@@ -117,6 +142,7 @@ p {
 }
 
 // 5. align-item
+// start(flex-start),end(flex-end),center(center),stretch(stretch)
 @each $key, $value in $flex-ai {
   .ai-#{$key} {
     align-items: $value;
@@ -131,12 +157,15 @@ p {
 
 /* 常用边距样式 */
 // 先循环类型（是margin还是padding），再循环方位（是上、下、左、右哪种），最后再循环尺寸（是哪个尺寸）
+// $spacing-types: ( m: margin, p: padding );
+// $spacing-directions: ( t: top, r: right, b: bottom, l: left );
+// 0(0),1(0.25rem),2(0.5rem),3(1rem),4(1.5rem),5(3rem)
 @each $typeKey, $type in $spacing-types {
   
   // 1. 我们想要 .m-1 {margin: 0.25rem} 这种形式
   // 这里就无需循环方位了，直接循环尺寸即可
   @each $sizeKey, $size in $spacing-sizes {
-    .#{$typeKey}-#{$sizeKye} {
+    .#{$typeKey}-#{$sizeKey} {
       #{$type}: $size * $spacing-base-size;
   	}
 	}
@@ -159,7 +188,7 @@ p {
     @each $sizeKey, $size in $spacing-sizes {
       .#{$typeKey}#{$directionKey}-#{$sizeKey} {
         // 不仅是在类名，在属性名中使用变量也需要用#{变量}方式。
-        #{$type}-#{$direction}: $size * $spcing-base-size;
+        #{$type}-#{$direction}: $size * $spacing-base-size;
     	}
     }
   }
@@ -167,10 +196,16 @@ p {
 
 /* borders */
 @each $dir in (top, right, bottom, left) {
+  .border {
+    border: 1px solid $border-color;
+  }
+
   .border-#{$dir} {
     border-#{$dir}: 1px solid $border-color;
   }
 }
+
+/* border-radius */ 
 
 
 /* 宽、高 */
@@ -181,4 +216,28 @@ p {
 // 高度百分百
 .h-100 {
   height: 100%;
+}
+
+/* banner尺寸 */
+.banner {
+  // width:calc(100% - 100px);
+  width: 100%;
+  height:0;
+  // 因为padding-bottom的百分比基于父元素的宽度计算
+  // 我们利用这一点，来保持容器的宽高比，但此时必须将height设置为0，只使用padding-bottom来撑开高度。
+  padding-bottom:36%;
+  // padding-bottom:calc((100% - 100px)/2);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    // height: 100%;
+    // object-fit:cover
+  }
+}
+
+/* container */
+.container {
+  width: 1090px;
+  margin: 0 auto;
 }

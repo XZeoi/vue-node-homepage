@@ -118,8 +118,6 @@ export default {
       this.mainTags = res.data
     },
     async fetchSubTags() {
-      console.log('woaini');
-
       // 1. 从后台获取副标签数据
       // const res = await this.$http.get('technical_articles')
       const res = await this.$http.get('rest/sub_tags')

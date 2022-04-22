@@ -13,6 +13,11 @@
         <el-table-column prop="_id" label="ID" width="240"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
         <el-table-column prop="mainTag.name" label="标签"></el-table-column>
+        <el-table-column label="精选">
+          <template slot-scope="scope">
+            {{scope.row.isBest ? "是":"否"}}
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
           <template slot-scope="scope">
             <!-- <el-button
@@ -67,7 +72,6 @@ export default {
   created() {
     // 拉取文章列表
     this.articlesFetch()
-    console.log(' created钩子函数');
   },
   methods: {
     // 子组件的状态改变，只有通过事件来影响父组件的状态，不可以直接通过子组件更改而改变父组件状态。
@@ -79,6 +83,7 @@ export default {
       // const res = await this.$http.get('rest/technical_articles')
       const res = await this.$http.get(`rest/${this.articlesPath}`)
       this.articles = res.data
+      console.log(res.data);
     },
     // 删除目标文章
     remove(row) {

@@ -8,13 +8,14 @@ $colors: (
   dark-1: #333,
   dark-2: #666,
   dark-3: #999,
+  dark-4: #eee,
   // 基础色
-  parmary: #ffc6ee,
+  primary: #ffc6ee,
   strengh: #52f41d
 );
 
 /* 边框颜色 */
-$border-color: map-get($colors, "dark-3");
+$border-color: map-get($colors, "dark-4");
 
 /* 定义字体基本大小值 */
 $font-base-size: 1rem;
@@ -30,6 +31,7 @@ $font-size: (
   md: 1, // 13px
   lg: 1.0769, // 14px
   xl: 1.2308, // 16px
+  xxl: 2, //26px
 );
 
 /* flex布局中的变量 */
@@ -65,6 +67,14 @@ $spacing-sizes: (
   2: 0.5,
   3: 1,
   4: 1.5,
-  5: 3
+  5: 3,
+  6: 5
 );
+
+$border-radius: (
+  base: 4px,
+  small: 2px,
+  large: 6px
+)
+
 

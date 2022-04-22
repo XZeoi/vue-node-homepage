@@ -35,6 +35,11 @@
             />
           </template>
         </el-table-column>
+        <el-table-column label="精选" width="60px">
+          <template slot-scope="scope">
+            {{scope.row.isBest ? "是":"否"}}
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
           <template slot-scope="scope">
             <!-- <el-button

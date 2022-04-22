@@ -11,6 +11,7 @@ const Photograph = () => import("@/views/Photograph.vue")
 const Design = () => import("@/views/Design.vue")
 const Drawing = () => import("@/views/Drawing.vue")
 const AdminUser = () => import("@/views/AdminUser.vue")
+const Setting = () => import("@/views/Setting.vue")
 
 const ArticleDialog = () => import('@/components/ArticleDialog.vue')
 const WorkDialog = () => import('@/components/WorkDialog.vue')
@@ -134,7 +135,10 @@ const routes = [
       },
       {path: "/admin_users", component: AdminUser, children: [
         {path: "create", component: AdminUserDialog, props: true}
-      ]}
+      ]},
+      {
+        path: "/settings", component: Setting
+      }
     ]
   },
   // {
