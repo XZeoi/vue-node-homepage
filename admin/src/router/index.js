@@ -14,6 +14,7 @@ const AdminUser = () => import("@/views/AdminUser.vue")
 const Setting = () => import("@/views/Setting.vue")
 
 const ArticleDialog = () => import('@/components/ArticleDialog.vue')
+const TechArticleDialog = () => import('@/components/TechArticleDialog.vue')
 const WorkDialog = () => import('@/components/WorkDialog.vue')
 
 const AdminUserDialog = () => import('@/components/AdminUserDialog.vue')
@@ -46,16 +47,18 @@ const routes = [
         children: [
           // { path: 'create', component: ArticleDialog },
           {
-            path: 'create', component: ArticleDialog, props: {
+            path: 'create', component: TechArticleDialog, props: {
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'technical_articles'
             }
           },
           // { path: 'edit/:id', component: ArticleDialog,  props: true},
           {
-            path: 'edit/:id', component: ArticleDialog, props: route => ({
+            path: 'edit/:id', component: TechArticleDialog, props: route => ({
               id: route.params.id,
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'technical_articles'
             })
           },
@@ -66,6 +69,7 @@ const routes = [
           {
             path: 'create', component: ArticleDialog, props: {
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'my_articles'
             }
           },
@@ -74,6 +78,7 @@ const routes = [
             path: 'edit/:id', component: ArticleDialog, props: route => ({
               id: route.params.id,
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'my_articles'
             })
           },
@@ -85,6 +90,7 @@ const routes = [
           {
             path: 'create', component: WorkDialog, props: {
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'photographs'
             }
           },
@@ -92,6 +98,7 @@ const routes = [
             path: 'edit/:id', component: WorkDialog, props: route => ({
               id: route.params.id,
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'photographs'
             })
           },
@@ -103,6 +110,7 @@ const routes = [
           {
             path: 'create', component: WorkDialog, props: {
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'designs'
             }
           },
@@ -110,6 +118,7 @@ const routes = [
             path: 'edit/:id', component: WorkDialog, props: route => ({
               id: route.params.id,
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'designs'
             })
           },
@@ -121,6 +130,7 @@ const routes = [
           {
             path: 'create', component: WorkDialog, props: {
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'drawings'
             }
           },
@@ -128,6 +138,7 @@ const routes = [
             path: 'edit/:id', component: WorkDialog, props: route => ({
               id: route.params.id,
               tagPath: 'main_tags',
+              subTagsPath: 'sub_tags',
               articlePath: 'drawings'
             })
           },

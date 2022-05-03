@@ -5,7 +5,7 @@
     <top-bar></top-bar>
     <slide-bar></slide-bar>
     <content-area></content-area>
-    <content-area></content-area>
+    <contact-area></contact-area>
     <footer-bar></footer-bar>
   </div>
 </template>
@@ -20,7 +20,7 @@ import FooterBar from '@/components/FooterBar.vue'
 export default {
   name: 'Home',
   components: {
-    TopBar, SlideBar, ContentArea, ContentArea, FooterBar
+    TopBar, SlideBar, ContentArea, ContactArea, FooterBar
   }
 }
 </script>

@@ -22,6 +22,8 @@ const schema = new mongoose.Schema({
   description: {
     type: String
   },
+  // （补充）公开/私密
+  isSecret: false,
   // (2) 主标签
   // 只有一个，用于标识文章大的分类
   mainTag: { type: mongoose.Schema.Types.ObjectId , ref: 'MainTag' },

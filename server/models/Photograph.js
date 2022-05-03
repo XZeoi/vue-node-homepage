@@ -17,6 +17,8 @@ const schema = new mongoose.Schema({
   description: {
     type: String
   },
+  // （补充）公开/私密
+  isSecret: false,
   // 2. 类型
   mainTag: { type: mongoose.Schema.Types.ObjectId , ref: 'MainTag' },
   // 3. 信息

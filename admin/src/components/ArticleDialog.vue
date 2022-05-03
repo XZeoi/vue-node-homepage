@@ -6,7 +6,7 @@
           <h3 class="dialog-title">{{ id ? "编辑" : "新增" }}文章</h3>
           <el-form @submit.native.prevent="save" class="form-area">
             <el-row class="article-info">
-              <el-col :span="8">
+              <el-col :span="6">
                 <el-form-item label="标题">
                   <el-input
                     autofocus
@@ -16,7 +16,7 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <el-form-item label="类型">
                   <el-select v-model="model.mainTag" class="define-input">
                     <el-option
@@ -28,7 +28,21 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
+                <el-form-item label="标签">
+                  <el-select v-model="model.subTags" multiple>
+                    <el-option
+                      v-for="item of subTags"
+                      :key="item._id"
+                      :label="item.name"
+                      :value="item._id"
+                    >
+
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
                 <el-form-item label="时间">
                   <el-date-picker
                     class="define-input"
@@ -111,6 +125,10 @@ export default {
     },
     tagPath: {
       type: String,
+      // required: true
+    },
+    subTagsPath: {
+      type: String
     },
     articlePath: {
       type: String,
@@ -119,22 +137,26 @@ export default {
   data() {
     return {
       tags: [],
+      subTags: [],
       model: {
         title: "",
         isBest: false,
         mainTag: "",
+        subTag:[],
         infos: {
           timeCreated: "",
         },
         banner: "",
         description: "",
+        isSecret: false,
         content: "",
       },
     };
   },
   created() {
-    // 1. 获取tag
+    // 1. 获取tag及subTags
     this.tagFetch();
+    this.subTagsFetch();
     // 2. 当id存在，拉取当前文章
     this.id && this.articleFetch();
   },
@@ -146,6 +168,12 @@ export default {
       this.tags = res.data;
       console.log(this.tags);
     },
+    /* subTags获取 */
+    async subTagsFetch() {
+      const res = await this.$http.get(`rest/${this.subTagsPath}`);
+      this.subTags = res.data;
+    },
+
     /* 关闭对话框 */
     close() {
       // this.$emit("dialogClose");

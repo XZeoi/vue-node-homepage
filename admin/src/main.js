@@ -23,6 +23,11 @@ Vue.mixin({
   }
 })
 
+/*  */ 
+import MavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(MavonEditor)
+
 /* axios的挂载 */
 // 1. 导入axios的实例 
 import Http from "@/network/http.js"

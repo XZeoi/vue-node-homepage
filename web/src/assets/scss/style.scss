@@ -24,7 +24,7 @@ html {
 /* body元素初始化 */
 body {
   // 重置外边距(默认有外边距)
-  margin: 0;
+  // margin: 0;
   // 给予初始字体
   // Arial 几乎所有设备都有的；Helvetica 是苹果设备字体；sans-serif 表示非衬线字体
   // font-family: Arial, Helvetica, sans-serif;
@@ -41,6 +41,11 @@ body {
 
   // 最小宽度
   min-width: 980px;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  padding: 0;
+  margin: 0;
 }
 
 /* a标签 */
@@ -240,4 +245,10 @@ p {
 .container {
   width: 1090px;
   margin: 0 auto;
+}
+
+/* 点击样式 */
+.click:visited {
+  cursor: pointer;
+  color: map-get($map: $colors, $key: "dark-4")
 }

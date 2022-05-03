@@ -1,39 +1,35 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3347148 */
-  src: url('iconfont.woff2?t=1650519655613') format('woff2'),
-       url('iconfont.woff?t=1650519655613') format('woff'),
-       url('iconfont.ttf?t=1650519655613') format('truetype');
+  src: url('iconfont.woff2?t=1650999073637') format('woff2'),
+       url('iconfont.woff?t=1650999073637') format('woff'),
+       url('iconfont.ttf?t=1650999073637') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 16px;
+  font-size: 26px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-photo:before {
-  content: "\e605";
+.icon-lofter:before {
+  content: "\e638";
+  color: #326061;
 }
 
-.icon-note:before {
-  content: "\e709";
+.icon-weibo:before {
+  content: "\e636";
+  color: #e81024;
 }
 
-.icon-photograph:before {
-  content: "\e65f";
+.icon-instagram:before {
+  content: "\e68d";
+  color: #e02668;
 }
 
-.icon-drawing:before {
-  content: "\e603";
-}
-
-.icon-tech_article:before {
-  content: "\e70e";
-}
-
-.icon-design:before {
-  content: "\e608";
+.icon-twitter:before {
+  content: "\e600";
+  color: #5aa9e0;
 }
 

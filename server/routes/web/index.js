@@ -41,5 +41,63 @@
     res.send(model)
   })
 
+  // 3. 技术文章标题列表分页展示接口
+  // 动态参数 page：当前第几页；size：每页条数
+  router.get("/technical_articles_title_lists/:page/:size", async (req, res) => {
+    // 
+    // let lastNum = req.params.page * req.params.size -1;
+    let firstNum = req.params.page * req.params.size - req.params.size;
+    const model = await TechnicalArticle.find().populate("mainTag").sort({_id:-1}).skip(firstNum).limit(req.params.size)
+    const count = await TechnicalArticle.find().count()
+    let pages = Math.ceil(count/req.params.size)
+    res.send({
+      data: model,
+      count,
+      pages
+    })
+  })
+
+  // 4. 随笔标题列表分页展示接口
+  router.get("/my_articles_title_lists/:page/:size", async (req, res) => {
+    let firstNum = req.params.page * req.params.size - req.params.size;
+    const model = await MyArticle.find().populate("mainTag").sort({_id:-1}).skip(firstNum).limit(req.params.size)
+    const count = await MyArticle.find().count()
+    let pages = Math.ceil(count/req.params.size)
+    res.send({
+      data: model,
+      count,
+      pages
+    })
+  })
+
+  // 5. 摄影标题列表分页展示接口
+  router.get("/photographs_title_lists/:page/:size", async (req, res) => {
+    let firstNum = req.params.page * req.params.size - req.params.size;
+    const model = await Photograph.find().populate("mainTag").sort({_id:-1}).skip(firstNum).limit(req.params.size)
+    const count = await Photograph.find().count()
+    let pages = Math.ceil(count/req.params.size)
+    res.send({
+      data: model,
+      count,
+      pages
+    })
+  })
+
+  // 6. 技术文章详情页接口
+  // findById
+  router.get("/technical_article/:id", async (req, res) => {
+    const model = await TechnicalArticle.findById(req.params.id).populate("mainTag").populate("subTags")
+    const lists = await TechnicalArticle.find({}, "title").sort({id:-1}).limit(10)
+    // 上一篇
+    const pre = await TechnicalArticle.findOne({'_id': { '$lt': req.params.id }}, "_id title").sort({ _id: -1 })
+    const next = await TechnicalArticle.findOne({'_id': { '$gt': req.params.id }}, "_id title").sort({ _id: 1 })
+    res.send({
+      article: model,
+      otherLists: lists,
+      pre,
+      next
+    })
+  })
+
   app.use("/web/api/", router)
  }

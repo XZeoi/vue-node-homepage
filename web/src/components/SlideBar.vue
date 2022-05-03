@@ -93,11 +93,11 @@ export default {
     async fetch() {
       const res = await this.$http.get("carousels");
       this.banners = res.data;
-      console.log(this.banners);
+      // console.log(this.banners);
     },
     indexChange() {
       this.active = this.$refs.mySwiper.swiper.realIndex
-      console.log(this.$refs.mySwiper.swiper);
+      // console.log(this.$refs.mySwiper.swiper);
     }
   },
 };
